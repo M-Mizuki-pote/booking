@@ -1,16 +1,89 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Booking55</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <meta charset="utf-8">
+      <title>予約アプリ</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+      <%= javascript_importmap_tags %>
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <div class="header-left">
+        <%= link_to root_path do %>
+          <%= image_tag "/logo.png" %>
+        <% end %>
+
+        <div class="search">
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= text_field_tag("search","",{placeholder:"エリア"}) %>
+              <%= submit_tag '検索', :address => nil %>
+            <% end %>
+
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= text_field_tag("search","",{placeholder:"キーワード"}) %>
+              <%= submit_tag '検索', :address => nil %>
+            <% end %>
+        </div>
+
+        <% if user_signed_in? %>
+          <div class="user-name">
+           <%= current_user.name %>
+          </div>
+        <% end %>
+      </div>
+
+      <% if user_signed_in? %>
+        <div class="header-right">
+          <% if current_user.image? %>
+            <ul class="icon-menu">
+              <li class="icon_menu"><a href="#"><img src="<%= current_user.image %>", width="50" height="50" ></a>
+                <ul class="menu_lists">
+                  <li><%= link_to "ルーム登録", user_path(current_user.id) %></li>
+                  <li><%= link_to "予約済みルーム一覧", reservations_path %></li>
+                  <li><%= link_to "登録済みルーム一覧", post_path(current_user.id) %></li>
+                  <li><%= link_to "設定", edit_user_registration_path %></li>
+                  <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+                </ul>
+              </li>
+            </ul>
+        </div>
+
+          <% else %>
+              <ul class="icon-menu">
+                <li class="icon_menu"><a href="#"><%= image_tag "/icon.jpg", size:"50x50" %></a>
+                  <ul class="menu_lists">
+                    <li><%= link_to "ルーム登録", user_path(current_user.id) %></li>
+                    <li><%= link_to "予約済みルーム一覧", reservations_path %></li>
+                    <li><%= link_to "登録済みルーム一覧", post_path(current_user.id) %></li>
+                    <li><%= link_to "設定", edit_user_registration_path %></li>
+                    <li><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
+                  </ul>
+                </li>
+              </ul>
+          <% end %>
+
+        <% else %>
+          <div class="no-login-menu">
+            <%= link_to "ログイン", new_user_session_path, class:"link" %>
+            <%= link_to "登録する", new_user_registration_path, class:"link" %>
+          </div>
+        </div>
+
+      <% end %>
+    </header>
+
+      <p class="notice"><%= notice %></p>
+      <%= yield %>
+
+    <footer>
+      <p>© 2020 POTEPAN.INC.</p>
+    </footer>
   </body>
+
 </html>

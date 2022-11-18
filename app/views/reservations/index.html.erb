@@ -1,0 +1,30 @@
+<div class="room-list">
+  <h1>予約済みルーム一覧</h1>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ルーム画像</th>
+        <th>ルーム名</th>
+        <th>ルーム紹介</th>
+        <th>合計料金</th>
+        <th>開始日</th>
+        <th>終了日</th>
+        <th>予約確定日時</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @reservations.zip(@posts).each do |reservation,post| %>
+        <tr>
+          <td><img src="<%= post.room_image %>", width="200px" height="100%"></td>
+          <td><div class="post-room-name"><%= link_to post.room_name, new_post_path(post.id) %></div></td>
+          <td><div class="room-profile"><%= post.room_profile %></div></td>
+          <td>¥<%= (post.price).to_i * (reservation.person).to_i * (reservation.end_date - reservation.start_date).to_i %></td>
+          <td><%= reservation.start_date.to_formatted_s(:default) %></td>
+          <td><%= reservation.end_date.to_formatted_s(:default) %></td>
+          <td><%= reservation.created_at.to_s(:datetime_jp) %></td>
+         </tr>
+      <% end %>
+    </table>
+</div>

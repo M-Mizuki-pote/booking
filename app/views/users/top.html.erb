@@ -1,0 +1,55 @@
+<div class="top-wrapper">
+
+  <div class="search-wrapper">
+    <div class="search-wrapper-2">
+      <p>Share Roomsでまだ体験したことのない旅をしよう</p>
+        <%= form_tag(posts_path,:method => 'get') do %>
+          <%= label_tag 'エリア' %>
+            <%= text_field_tag("search","",{placeholder:"東京"}) %>
+            <%= submit_tag '検索', :address => nil %>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="area-wrapper">
+    <h2>おすすめのエリア</h2>
+    <div class="area-lists">
+      <div class="area">
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= hidden_field_tag :search, placeholder="東京" %>
+              <%= image_submit_tag("/tokyo.jpg", class: 'area-image') %>
+            <% end %>
+        <p>東京</p>
+      </div>
+
+      <div class="area">
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= hidden_field_tag :search, placeholder="京都" %>
+              <%= image_submit_tag("/kyoto.jpg", class: 'area-image') %>
+            <% end %>
+        <p>京都</p>
+      </div>
+
+      <div class="area">
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= hidden_field_tag :search, placeholder="大阪" %>
+              <%= image_submit_tag("/osaka.jpg", class: 'area-image') %>
+            <% end %>
+        <p>大阪</p>
+      </div>
+
+      <div class="area">
+          <%= form_tag(posts_path,:method => 'get') do %>
+            <%= label_tag %>
+              <%= hidden_field_tag :search, placeholder="札幌" %>
+              <%= image_submit_tag("/sapporo.jpg", class: 'area-image') %>
+            <% end %>
+        <p>札幌</p>
+      </div>
+
+    </div>
+  </div>
+</div>

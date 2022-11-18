@@ -1,0 +1,20 @@
+<div class="room-list">
+
+  <% if @posts.exists? %>
+    <h2>検索結果：<%=@posts.count%>件</h2>
+  <% else %>
+    <h2>検索結果：0件</h2> 
+  <% end %>
+
+    <% @posts.each do |post| %>
+      <%= link_to(new_post_path(post.id)) do %>
+        <div class="room-list-2">
+          <img class="post-room-image", src="<%= post.room_image %>", width="100%" height="100%"><br>
+          <div class="room-name"><%= post.room_name %></div>
+          <%= post.address %><br>
+          ¥<%= post.price %>
+        </div>
+      <% end %>
+    <% end %>
+
+</div>
