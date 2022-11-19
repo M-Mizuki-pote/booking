@@ -1,3 +1,9 @@
+<div class="error-message">
+  <% flash.each do |message_type, message| %>
+    <%= message %>
+  <% end %>
+</div>
+
 <div class="reserve-room">
   <%= form_with model: @reservation,  method: :get, url: reservations_show_path do |f| %>
     <%= f.hidden_field :post_id, value: @post.id %>
@@ -57,7 +63,7 @@
         </tr>
         <tr>
           <td>
-            <%= f.text_field :person, required: true %>
+            <%= f.number_field :person, required: true, in: 1..100 %>
           </td>
         </tr>
 

@@ -224,3 +224,8 @@ footer p{
  text-align:center;
 }
 
+.error-message{
+ text-align:center;
+ background-color:#fa8072;
+ color:white;
+}

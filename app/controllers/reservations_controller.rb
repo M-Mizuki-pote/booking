@@ -11,6 +11,10 @@ class ReservationsController < ApplicationController
   @reservation=Reservation.new(reservation_params)
   @price=(@post.price).to_i * (@reservation.person).to_i * (@reservation.end_date-@reservation.start_date).to_i
   @days=(@reservation.end_date - @reservation.start_date).to_i
+  if @days.to_i < -1
+    flash[:danger] = "過去の日付は無効です"
+    redirect_to controller: :posts, action: :new
+  end
  end
 
  def create
