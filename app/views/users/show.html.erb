@@ -1,0 +1,37 @@
+<div class="room_register">
+  <h1>ルーム情報登録</h1>
+
+  <%= form_with model: @post do |f| %>
+
+    <table>
+      <tr>
+       <td><%= f.label :room_name, "ルーム名 (必須)" %></td>
+       <td><%= f.text_field :room_name %></td>
+      </tr>
+
+      <tr>
+       <td><%= f.label :room_profile, "ルーム紹介 (必須)" %></td>
+       <td><%= f.text_area :room_profile %></td>
+      </tr>
+
+      <tr>
+       <td><%= f.label :price, "料金 (必須)" %></td>
+       <td><%= f.text_field :price %></td>
+      </tr>
+
+      <tr>
+       <td><%= f.label :address, "住所 (必須)" %></td>
+       <td><%= f.text_field :address %></td>
+      </tr>
+
+      <tr>
+       <td><%= f.label :room_image, "ルーム画像 (必須)" %></td>
+       <td><%= f.file_field :room_image %></td>
+      </tr>
+    </table>
+
+    <%= f.hidden_field :user_id, value: @user.id %>
+    <%= f.submit "投稿を完了する"%>
+
+  <% end %>
+</div>

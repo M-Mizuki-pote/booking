@@ -1,0 +1,68 @@
+<div class="account-edit">
+  <h2>アカウント情報</h2>
+
+  <% if current_user.image? %>
+    <img src="<%= current_user.image %>", width="100" height="100" >
+  <% else %>
+    <%= image_tag "/icon.jpg", size:"100x100" %>
+  <% end %>
+
+</div>
+
+<div class="account-edit-2">
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :image, "アイコン画像 (必須)"%><br>
+      <%= f.file_field :image, autofocus: true, autocomplete: "image"%>
+    </div>
+
+    <div class="field">
+      <%= f.label :name, "名前 (必須)"%><br>
+      <%= f.text_field :name, autofocus: true, autocomplete: "name"%>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, "メールアドレス (必須)"%><br>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :profile, "自己紹介 (必須)"%><br>
+      <%= f.text_area :profile, autofocus: true, autocomplete: "profile" %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="field-pass">
+      <div class="field">
+        <%= f.label :password, "変更後パスワード"%>(変更する場合のみ入力)<br />
+        <%= f.password_field :password, autocomplete: "new-password" %>
+        <% if @minimum_password_length %>
+          <br />
+        <% end %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation, "パスワード確認用" %>(変更する場合のみ入力)<br />
+        <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :current_password, "現在のパスワード" %>(アカウント情報を更新する場合のみ入力)<br />
+      <%= f.password_field :current_password, autocomplete: "current-password" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "更新" %>
+    </div>
+  <% end %>
+
+  <%= link_to "戻る", root_path %>
+
+</div>
